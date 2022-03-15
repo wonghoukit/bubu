@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:springboot_demo}
+    url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:bubu}
     username: ${MYSQL_USERNAME}
     password: ${MySQL_PASSWORD}
   mvc:
@@ -13,5 +13,14 @@ spring:
       suffix: .html
       prefix: /
 
-mybatis:
-  mapper-locations: classpath*:mapper/*Mapper.xml
+#mybatis:
+#  mapper-locations: classpath*:mapper/*Mapper.xml
+
+wx:
+  miniapp:
+    configs:
+      - appid: wx7a99f62eee9729f5
+        secret: 5ee63148cd107ff2245e4675e279afe9
+        token: #微信小程序消息服务器配置的token
+        aesKey: #微信小程序消息服务器配置的EncodingAESKey
+        msgDataFormat: JSON
