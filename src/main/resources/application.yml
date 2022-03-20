@@ -5,9 +5,11 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:bubu}
+    url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:bubu}&serverTimeZone=Asia/Shanghai
     username: ${MYSQL_USERNAME}
     password: ${MySQL_PASSWORD}
+  jackson:
+    time-zone: GMT+8
 #  mvc:
 #    view:
 #      suffix: .html
