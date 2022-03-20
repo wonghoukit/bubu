@@ -10,7 +10,10 @@ import com.tencent.wxcloudrun.service.PunchRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
+import java.util.List;
 
 /**
  * <p>
@@ -40,5 +43,17 @@ public class PunchRecordServiceImpl extends ServiceImpl<PunchRecordMapper, Punch
                 .eq(PunchRecord::getPunchDate, punchBO.getPunchDate())
                 .last("limit 1");
         return this.baseMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public List<PunchRecord> monthPunchListByUid(String uid) {
+        LocalDate today = LocalDate.now();
+        LocalDate firstDay = today.with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate lastDay = today.with(TemporalAdjusters.lastDayOfMonth());
+
+        Wrapper<PunchRecord> wrapper = Wrappers.<PunchRecord>lambdaQuery()
+                .eq(PunchRecord::getUid, uid)
+                .between(PunchRecord::getPunchDate, firstDay, lastDay);
+        return this.baseMapper.selectList(wrapper);
     }
 }

@@ -45,6 +45,11 @@ public class PunchRecord implements Serializable {
     private LocalDateTime punchTime;
 
     /**
+     * 打卡状态[1-正常 2-超时]
+     */
+    private Integer punchStatus;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createdAt;
