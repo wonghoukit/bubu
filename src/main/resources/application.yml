@@ -8,10 +8,10 @@ spring:
     url: jdbc:mysql://${MYSQL_ADDRESS}/${MYSQL_DATABASE:bubu}
     username: ${MYSQL_USERNAME}
     password: ${MySQL_PASSWORD}
-  mvc:
-    view:
-      suffix: .html
-      prefix: /
+#  mvc:
+#    view:
+#      suffix: .html
+#      prefix: /
 
 #mybatis:
 #  mapper-locations: classpath*:mapper/*Mapper.xml

@@ -1,8 +1,19 @@
 package com.tencent.wxcloudrun.controller;
 
 
+import cn.hutool.core.util.ObjectUtil;
+import com.tencent.wxcloudrun.bo.AddPunchBO;
+import com.tencent.wxcloudrun.config.ApiResponse;
+import com.tencent.wxcloudrun.model.PunchRecord;
+import com.tencent.wxcloudrun.service.PunchRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -16,4 +27,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UsersController {
 
+    @Autowired
+    PunchRecordService punchRecordService;
+
+    @Autowired
+    private HttpServletRequest request;
+
+    @PostMapping("/punch")
+    public ApiResponse punch() {
+        String uid = request.getHeader("x-app-uid");
+        AddPunchBO addPunchBO = new AddPunchBO();
+        addPunchBO.setUid(Integer.valueOf(uid));
+        addPunchBO.setPunchTime(LocalDateTime.now());
+        addPunchBO.setPunchDate(LocalDate.now());
+
+        // 查询是否已经打卡
+        PunchRecord record = punchRecordService.checkPunch(addPunchBO);
+        if (ObjectUtil.isNotNull(record)) {
+            return ApiResponse.ok();
+        }
+
+        // 记录打卡
+        punchRecordService.punch(addPunchBO);
+        return ApiResponse.ok();
+    }
 }

@@ -2,67 +2,47 @@ package com.tencent.wxcloudrun.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * <p>
- * 用户表
+ * 
  * </p>
  *
  * @author kit
- * @since 2022-01-28
+ * @since 2022-03-16
  */
 @Data
-public class Users implements Serializable {
+@TableName("punch_record")
+public class PunchRecord implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 自增id
+     * 自增ID
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 用户登录token
+     * 用户id
      */
-    private String token;
+    private Integer uid;
 
     /**
-     * 微信unionid
+     * 打卡日期
      */
-    private String wxUnionid;
+    private LocalDate punchDate;
 
     /**
-     * 小程序openid
+     * 打卡时间
      */
-    private String minaOpenid;
-
-    /**
-     * 昵称
-     */
-    private String nickname;
-
-    /**
-     * 头像
-     */
-    private String avatarUrl;
-
-    /**
-     * 用户状态
-     */
-    private Integer status;
-
-    /**
-     * 授权sessionKey
-     */
-    private String sessionKey;
+    private LocalDateTime punchTime;
 
     /**
      * 创建时间
