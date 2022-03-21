@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,17 +63,14 @@ public class UsersController {
         UserPunchRecordListVO listVO = new UserPunchRecordListVO();
         List<PunchRecord> recordList = punchRecordService.monthPunchListByUid(uid);
         if (CollectionUtil.isNotEmpty(recordList)) {
-            List<Map<String, UserPunchRecordListVO.PunchRecordVO>> list = new ArrayList<>();
+            Map<String, UserPunchRecordListVO.PunchRecordVO> map = new HashMap<>();
             recordList.forEach(r -> {
-                Map<String, UserPunchRecordListVO.PunchRecordVO> map = new HashMap<>();
                 UserPunchRecordListVO.PunchRecordVO punchRecordVO = new UserPunchRecordListVO.PunchRecordVO();
                 punchRecordVO.setPunchTime(r.getPunchTime());
                 punchRecordVO.setPunchStatus(r.getPunchStatus());
                 map.put(r.getPunchDate().toString(), punchRecordVO);
-
-                list.add(map);
             });
-            listVO.setList(list);
+            listVO.setMap(map);
         }
 
         return ApiResponse.ok(listVO);
