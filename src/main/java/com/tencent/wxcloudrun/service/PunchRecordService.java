@@ -21,5 +21,5 @@ public interface PunchRecordService extends IService<PunchRecord> {
 
     PunchRecord checkPunch(AddPunchBO punchBO);
 
-    List<PunchRecord> monthPunchListByUid(String uid);
+    List<PunchRecord> getUserPunchListByDateRange(String uid, LocalDate firstDay, LocalDate lastDay);
 }

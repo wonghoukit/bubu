@@ -3,16 +3,15 @@ package com.tencent.wxcloudrun.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.tencent.wxcloudrun.bo.AddPunchBO;
-import com.tencent.wxcloudrun.model.PunchRecord;
-import com.tencent.wxcloudrun.dao.PunchRecordMapper;
-import com.tencent.wxcloudrun.service.PunchRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tencent.wxcloudrun.bo.AddPunchBO;
+import com.tencent.wxcloudrun.dao.PunchRecordMapper;
+import com.tencent.wxcloudrun.model.PunchRecord;
+import com.tencent.wxcloudrun.service.PunchRecordService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 /**
@@ -46,11 +45,7 @@ public class PunchRecordServiceImpl extends ServiceImpl<PunchRecordMapper, Punch
     }
 
     @Override
-    public List<PunchRecord> monthPunchListByUid(String uid) {
-        LocalDate today = LocalDate.now();
-        LocalDate firstDay = today.with(TemporalAdjusters.firstDayOfMonth());
-        LocalDate lastDay = today.with(TemporalAdjusters.lastDayOfMonth());
-
+    public List<PunchRecord> getUserPunchListByDateRange(String uid, LocalDate firstDay, LocalDate lastDay) {
         Wrapper<PunchRecord> wrapper = Wrappers.<PunchRecord>lambdaQuery()
                 .eq(PunchRecord::getUid, uid)
                 .between(PunchRecord::getPunchDate, firstDay, lastDay);
